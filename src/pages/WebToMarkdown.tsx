@@ -59,7 +59,7 @@ export default function WebToMarkdown() {
 
     try {
       const response = await fetch(
-        `http://localhost:5600/?url=${encodeURIComponent(url)}`
+        `https://webtomarkdown.onrender.com/?url=${encodeURIComponent(url)}`
       );
 
       if (!response.ok) {
@@ -207,19 +207,11 @@ export default function WebToMarkdown() {
               </div>
             </CardHeader>
             <CardContent>
-              <Tabs defaultValue="json" className="w-full">
+              <Tabs defaultValue="markdown" className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="json">JSON View</TabsTrigger>
                   <TabsTrigger value="markdown">Markdown Preview</TabsTrigger>
+                  <TabsTrigger value="json">JSON View</TabsTrigger>
                 </TabsList>
-
-                <TabsContent value="json" className="mt-4">
-                  <div className="bg-slate-950 text-slate-50 p-6 rounded-lg overflow-auto max-h-[600px]">
-                    <pre className="text-sm">
-                      {JSON.stringify(scrapedData, null, 2)}
-                    </pre>
-                  </div>
-                </TabsContent>
 
                 <TabsContent value="markdown" className="mt-4 space-y-4">
                   <Card className="bg-neutral-50">
@@ -275,6 +267,14 @@ export default function WebToMarkdown() {
                       </div>
                     </CardContent>
                   </Card>
+                </TabsContent>
+
+                <TabsContent value="json" className="mt-4">
+                  <div className="bg-slate-950 text-slate-50 p-6 rounded-lg overflow-auto max-h-[600px]">
+                    <pre className="text-sm">
+                      {JSON.stringify(scrapedData, null, 2)}
+                    </pre>
+                  </div>
                 </TabsContent>
               </Tabs>
             </CardContent>
