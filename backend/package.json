@@ -19,7 +19,7 @@
     "turndown": "^7.1.1"
   },
   "engines": {
-    "node": ">=18"
+    "node": "^22.12.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21"
