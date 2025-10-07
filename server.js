@@ -11,6 +11,7 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const { chromium } = require('playwright');
+const cors = require('cors');
 const fetch =
   globalThis.fetch ||
   ((...args) => import('node-fetch').then((m) => m.default(...args)));
@@ -24,6 +25,12 @@ const fs = require('fs');
 
 const PORT = process.env.PORT || 5600;
 const app = express();
+
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+  })
+);
 
 const PAGE_TIMEOUT = 20000;
 const BROWSER_LAUNCH_OPTIONS = { headless: true };
@@ -206,11 +213,9 @@ function cacheSet(key, obj) {
 app.get('/', async (req, res) => {
   const url = req.query.url;
   if (!url) {
-    return res
-      .status(400)
-      .json({
-        error: 'Missing url query parameter. e.g. /?url=https://example.com',
-      });
+    return res.status(400).json({
+      error: 'Missing url query parameter. e.g. /?url=https://example.com',
+    });
   }
   let parsed;
   try {
@@ -219,6 +224,7 @@ app.get('/', async (req, res) => {
     return res.status(400).json({ error: 'Invalid URL' });
   }
 
+  console.log('Processing', url);
   // politeness / robots check
   try {
     const ok = await politeToCrawl(url);
@@ -297,9 +303,11 @@ app.get('/', async (req, res) => {
     cacheSet(cacheKey, { json: resultJson, md: mdWithFM });
 
     if (raw) {
+      console.log('Returning raw markdown');
       res.setHeader('content-type', 'text/markdown; charset=utf-8');
       return res.status(200).send(mdWithFM);
     } else {
+      console.log('Returning JSON with', chunks.length);
       return res.status(200).json(resultJson);
     }
   } catch (err) {
