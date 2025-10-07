@@ -269,7 +269,7 @@ export default function WebToMarkdown() {
                       <div className="bg-slate-50 p-4 rounded-lg overflow-auto max-h-[400px]">
                         <pre className="text-sm whitespace-pre-wrap">
                           {scrapedData?.content ||
-                            scrapedData?.markdown ||
+                            scrapedData?.md ||
                             'No content available'}
                         </pre>
                       </div>
