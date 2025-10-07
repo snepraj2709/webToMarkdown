@@ -48,6 +48,20 @@ export default function WebToMarkdown() {
     setTimeout(() => setToast({ show: false, message: '' }), 3000);
   };
 
+  const normalizeUrl = (inputUrl: string): string => {
+    let normalized = inputUrl.trim();
+
+    // Add https:// if no protocol is present
+    if (!normalized.match(/^https?:\/\//i)) {
+      normalized = 'https://' + normalized;
+    }
+
+    // Add www. if domain doesn't have it
+    normalized = normalized.replace(/^(https?:\/\/)(?!www\.)(.+)/i, '$1www.$2');
+
+    return normalized;
+  };
+
   const scrapeWebsite = async () => {
     if (!url.trim()) {
       showAlert('Please enter a valid URL', 'error');
@@ -58,8 +72,11 @@ export default function WebToMarkdown() {
     setAlert({ show: false, message: '', type: 'success' });
 
     try {
+      const normalizedUrl = normalizeUrl(url);
       const response = await fetch(
-        `https://webtomarkdown.onrender.com/?url=${encodeURIComponent(url)}`
+        `https://webtomarkdown.onrender.com/?url=${encodeURIComponent(
+          normalizedUrl
+        )}`
       );
 
       if (!response.ok) {
