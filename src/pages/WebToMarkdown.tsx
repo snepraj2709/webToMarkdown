@@ -90,6 +90,7 @@ export default function WebToMarkdown() {
       showAlert('✅ Website scraped successfully!', 'success');
     } catch (error: any) {
       showAlert(`❌ Error: ${error.message}`, 'error');
+      setScrapedData({});
     } finally {
       setLoading(false);
     }
