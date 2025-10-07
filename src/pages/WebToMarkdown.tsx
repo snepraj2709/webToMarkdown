@@ -27,7 +27,7 @@ import {
 export default function WebToMarkdown() {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
-  const [scrapedData, setScrapedData] = useState(null);
+  const [scrapedData, setScrapedData] = useState<any>(null);
   const [alert, setAlert] = useState({
     show: false,
     message: '',
