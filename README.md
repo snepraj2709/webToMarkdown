@@ -1,73 +1,53 @@
-# React + TypeScript + Vite
+# 🌐 Web to Markdown Converter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack application that converts any webpage into **Markdown format** using a **headless Chromium browser (Playwright)** for web scraping.  
+This repository contains **both Frontend (FE)** and **Backend (BE)** code, deployed using **Render** with a **Docker image** for backend api and static site for frontend application.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## React Compiler
+- **Frontend URL:** [https://websitescrapper.onrender.com/](https://websitescrapper.onrender.com/)
+- **Backend API URL:** [https://webtomarkdown.onrender.com/](https://webtomarkdown.onrender.com/)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🧩 Project Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The **Web to Markdown Converter** allows users to input any website URL and get a clean, Markdown-formatted version of the page.  
+It uses **Playwright with a headless Chromium browser** to render and scrape website content accurately before converting it to Markdown.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+![alt text](public/image.png)
+### ⚙️ Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+#### Backend:
+- Node.js / Express.js  
+- Playwright (for headless browser scraping)  
+- Turndown to convert HTML into Markdown.
+- Docker (for containerized deployment using Render)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+#### Frontend:
+- React.js  
+- Shadcn components with Tailwind CSS  
+- Axios (for API integration)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧠 Features
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- 🌍 Convert any public webpage into Markdown format/ copy or download its JSON format 
+- ⚙️ Fast and efficient web scraping with Playwright  
+- 🧱 Full-stack setup with separate FE/BE  
+- 🚀 Deployed seamlessly using Render + Docker  
+- 🧑‍💻 Can use either Frontend to scrap a single website or use the API to scrap multiple websites. 
+
+---
+
+## 🧾 How to Use the API
+
+![alt text](public/image-1.png)
+
+### **Base URL**
+```bash
+curl --location --request GET 'https://webtomarkdown.onrender.com/?url=https%3A%2F%2Fscale.com%2F' \
+--header 'Content-Type: application/json'
